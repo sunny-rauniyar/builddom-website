@@ -43,7 +43,7 @@ export default function About() {
           <h2 className="mt-5 text-4xl font-extrabold text-[#0B2341] lg:text-5xl">
             Building Better
             <br />
-            Together.
+            Together...
           </h2>
 
           <p className="mt-8 text-lg leading-8 text-gray-600">

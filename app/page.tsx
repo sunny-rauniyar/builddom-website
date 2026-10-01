@@ -5,6 +5,7 @@ import Services from "@/components/home/Services";
 import WhyChoose from "@/components/home/WhyChoose";
 import Projects from "@/components/home/Projects";
 import Process from "@/components/home/Process";
+import Team from "@/components/home/Team";
 import Testimonials from "@/components/home/Testimonials";
 import Contact from "@/components/home/Contact";
 import Footer from "@/components/layout/Footer";
@@ -43,17 +44,20 @@ export default function Home() {
       </FadeIn>
 
       <FadeIn delay={0.5}>
-        <Process />
-      </FadeIn>
+  <Process />
+</FadeIn>
 
-      <FadeIn delay={0.6}>
-        <Testimonials />
-      </FadeIn>
+<FadeIn delay={0.6}>
+  <Team />
+</FadeIn>
 
-      <FadeIn delay={0.7}>
-        <Contact />
-      </FadeIn>
+<FadeIn delay={0.7}>
+  <Testimonials />
+</FadeIn>
 
+<FadeIn delay={0.8}>
+  <Contact />
+</FadeIn>
       <Footer />
 
       <WhatsAppButton />
