@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -48,52 +49,138 @@ export default function Footer() {
 
   async function loadSettings() {
     try {
-      const res = await fetch("/api/public/settings");
+      const res = await fetch("/api/public/settings", {
+        cache: "no-store",
+      });
+
       const data = await res.json();
 
-      if (data.success) {
+      if (data.success && data.settings) {
         setSettings({
-          companyName: data.settings.companyName || "builDom",
-          tagline: data.settings.tagline || "Build Better Together",
-          email: data.settings.email || "",
-          phone: data.settings.phone || "",
-          address: data.settings.address || "",
-          whatsapp: data.settings.whatsapp || "",
-          facebook: data.settings.facebook || "",
-          instagram: data.settings.instagram || "",
-          linkedin: data.settings.linkedin || "",
+          companyName:
+            data.settings.companyName || "builDom",
+          tagline:
+            data.settings.tagline || "Build Better Together",
+          email:
+            data.settings.email || "",
+          phone:
+            data.settings.phone || "",
+          address:
+            data.settings.address || "",
+          whatsapp:
+            data.settings.whatsapp || "",
+          facebook:
+            data.settings.facebook || "",
+          instagram:
+            data.settings.instagram || "",
+          linkedin:
+            data.settings.linkedin || "",
           footerText:
             data.settings.footerText ||
             "© builDom. All Rights Reserved.",
         });
       }
     } catch (error) {
-      console.error(error);
+      console.error("Failed to load footer settings:", error);
     }
   }
+
+  // ==========================================
+  // BUILDOM BRANDING
+  // D IS ALWAYS ORANGE
+  // ==========================================
+  const renderCompanyName = () => {
+    return (
+      <>
+        <span className="text-white">
+          buil
+        </span>
+
+        <span className="text-[#F58220]">
+          D
+        </span>
+
+        <span className="text-white">
+          om
+        </span>
+      </>
+    );
+  };
+
+  // ==========================================
+  // TAGLINE
+  // BETTER IS ALWAYS ORANGE
+  // ==========================================
+  const renderTagline = () => {
+    const tagline = settings.tagline;
+
+    if (
+      tagline
+        .toLowerCase()
+        .replace(/\s/g, "") ===
+      "buildbettertogether"
+    ) {
+      return (
+        <>
+          Build{" "}
+          <span className="font-semibold text-[#F58220]">
+            Better
+          </span>{" "}
+          Together
+        </>
+      );
+    }
+
+    if (
+      tagline
+        .toLowerCase()
+        .replace(/\s/g, "")
+        .replace(/\./g, "") ===
+      "buildbettertogether"
+    ) {
+      return (
+        <>
+          Build{" "}
+          <span className="font-semibold text-[#F58220]">
+            Better
+          </span>{" "}
+          Together
+        </>
+      );
+    }
+
+    return tagline;
+  };
 
   return (
     <footer className="bg-[#071A31] text-white">
       <div className="mx-auto max-w-7xl px-6 py-20">
 
+        {/* ==========================================
+            MAIN FOOTER
+        ========================================== */}
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
 
-          {/* Company */}
+          {/* ========================================
+              COMPANY
+          ======================================== */}
           <div>
 
             <h2 className="text-3xl font-extrabold">
-              {settings.companyName}
+              {renderCompanyName()}
             </h2>
 
             <p className="mt-6 leading-8 text-gray-300">
-              {settings.tagline}
+              {renderTagline()}
               <br />
               <br />
-              We deliver high-quality construction, architecture and
-              engineering solutions across Nepal with innovation,
-              trust and excellence.
+              We deliver high-quality construction,
+              architecture and engineering solutions
+              across Nepal with innovation, trust and
+              excellence.
             </p>
 
+            {/* Social Media */}
             <div className="mt-8 flex gap-4">
 
               {settings.facebook && (
@@ -101,6 +188,7 @@ export default function Footer() {
                   href={settings.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Facebook"
                   className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition hover:bg-[#F58220]"
                 >
                   <FaFacebookF size={18} />
@@ -112,6 +200,7 @@ export default function Footer() {
                   href={settings.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Instagram"
                   className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition hover:bg-[#F58220]"
                 >
                   <FaInstagram size={18} />
@@ -123,6 +212,7 @@ export default function Footer() {
                   href={settings.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="LinkedIn"
                   className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition hover:bg-[#F58220]"
                 >
                   <FaLinkedinIn size={18} />
@@ -130,10 +220,11 @@ export default function Footer() {
               )}
 
             </div>
-
           </div>
 
-          {/* Quick Links */}
+          {/* ========================================
+              QUICK LINKS
+          ======================================== */}
           <div>
 
             <h3 className="mb-6 text-xl font-bold">
@@ -160,10 +251,11 @@ export default function Footer() {
               ))}
 
             </div>
-
           </div>
 
-          {/* Services */}
+          {/* ========================================
+              SERVICES
+          ======================================== */}
           <div>
 
             <h3 className="mb-6 text-xl font-bold">
@@ -180,7 +272,9 @@ export default function Footer() {
 
           </div>
 
-          {/* Contact */}
+          {/* ========================================
+              CONTACT
+          ======================================== */}
           <div>
 
             <h3 className="mb-6 text-xl font-bold">
@@ -191,50 +285,67 @@ export default function Footer() {
 
               <div className="flex gap-3">
                 <MapPin
-                  className="mt-1 text-[#F58220]"
+                  className="mt-1 shrink-0 text-[#F58220]"
                   size={20}
                 />
+
                 <span className="text-gray-300">
-                  {settings.address || "Address not available"}
+                  {settings.address ||
+                    "Address not available"}
                 </span>
               </div>
 
               <div className="flex gap-3">
                 <Phone
-                  className="mt-1 text-[#F58220]"
+                  className="mt-1 shrink-0 text-[#F58220]"
                   size={20}
                 />
+
                 <span className="text-gray-300">
-                  {settings.phone || "Phone not available"}
+                  {settings.phone ||
+                    "Phone not available"}
                 </span>
               </div>
 
               <div className="flex gap-3">
                 <Mail
-                  className="mt-1 text-[#F58220]"
+                  className="mt-1 shrink-0 text-[#F58220]"
                   size={20}
                 />
+
                 <span className="text-gray-300">
-                  {settings.email || "Email not available"}
+                  {settings.email ||
+                    "Email not available"}
                 </span>
               </div>
 
             </div>
-
           </div>
-
         </div>
 
+        {/* ==========================================
+            COPYRIGHT
+        ========================================== */}
         <div className="mt-16 border-t border-white/10 pt-8">
 
           <div className="flex flex-col items-center justify-between gap-4 text-center text-gray-400 md:flex-row">
 
             <p>
-              {settings.footerText}
+              ©{" "}
+              <span className="text-white">
+                buil
+              </span>
+              <span className="text-[#F58220]">
+                D
+              </span>
+              <span className="text-white">
+                om
+              </span>
+              . All Rights Reserved.
             </p>
 
             <p>
-              {settings.tagline}
+              {renderTagline()}
             </p>
 
           </div>
@@ -245,3 +356,4 @@ export default function Footer() {
     </footer>
   );
 }
+

@@ -25,7 +25,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  // Default BuildDom settings
   const [settings, setSettings] = useState<Settings>({
     companyName: "BuildDom",
     tagline: "Build Better Together...",
@@ -33,15 +32,12 @@ export default function Navbar() {
   });
 
   useEffect(() => {
-    // Load dynamic settings
     loadSettings();
 
-    // Detect scroll
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
     };
 
-    // Detect active section
     const sections = document.querySelectorAll("section[id]");
 
     const observer = new IntersectionObserver(
@@ -68,7 +64,6 @@ export default function Navbar() {
     };
   }, []);
 
-  // Load settings from database/API
   async function loadSettings() {
     try {
       const res = await fetch("/api/public/settings", {
@@ -84,13 +79,10 @@ export default function Navbar() {
       if (data.success && data.settings) {
         setSettings({
           companyName:
-            data.settings.companyName?.trim() ||
-            "BuildDom",
-
+            data.settings.companyName?.trim() || "BuildDom",
           tagline:
             data.settings.tagline?.trim() ||
             "Build Better Together...",
-
           logo:
             data.settings.logo?.trim() ||
             "/images/logo/logo.jpeg",
@@ -101,60 +93,42 @@ export default function Navbar() {
     }
   }
 
-  // ----------------------------------------------------
-  // BuildDom Logo Text
-  // Keeps the original orange "D"
-  // ----------------------------------------------------
+  // ==========================================
+  // BUILDOM LOGO
+  // D IS ALWAYS ORANGE
+  // ==========================================
   const renderCompanyName = () => {
-    const companyName = settings.companyName;
-
-    // Preserve original BuildDom branding
-    if (companyName.toLowerCase() === "builddom") {
-      return (
-        <>
-          <span
-            className={
-              scrolled ? "text-[#0B2341]" : "text-white"
-            }
-          >
-            buil
-          </span>
-
-          <span className="text-[#F58220]">
-            D
-          </span>
-
-          <span
-            className={
-              scrolled ? "text-[#0B2341]" : "text-white"
-            }
-          >
-            om
-          </span>
-        </>
-      );
-    }
-
-    // For another company name, display normally
     return (
-      <span
-        className={
-          scrolled ? "text-[#0B2341]" : "text-white"
-        }
-      >
-        {companyName}
-      </span>
+      <>
+        <span
+          className={
+            scrolled ? "text-[#0B2341]" : "text-white"
+          }
+        >
+          buil
+        </span>
+
+        <span className="text-[#F58220]">
+          D
+        </span>
+
+        <span
+          className={
+            scrolled ? "text-[#0B2341]" : "text-white"
+          }
+        >
+          om
+        </span>
+      </>
     );
   };
 
-  // ----------------------------------------------------
-  // Dynamic Tagline
-  // Keeps "Better" orange for BuildDom tagline
-  // ----------------------------------------------------
+  // ==========================================
+  // TAGLINE
+  // ==========================================
   const renderTagline = () => {
     const tagline = settings.tagline;
 
-    // Preserve original BuildDom tagline
     if (
       tagline.toLowerCase().replace(/\s/g, "") ===
       "buildbettertogether..."
@@ -170,7 +144,6 @@ export default function Navbar() {
       );
     }
 
-    // Otherwise display dynamic tagline
     return tagline;
   };
 
@@ -195,20 +168,18 @@ export default function Navbar() {
             setMenuOpen(false);
           }}
         >
-          {/* Logo Image */}
           <Image
             src={
               settings.logo ||
               "/images/logo/logo.jpeg"
             }
-            alt={settings.companyName}
+            alt="BuildDom"
             width={64}
             height={64}
             priority
             className="h-14 w-14 rounded-full object-cover lg:h-16 lg:w-16"
           />
 
-          {/* Company Name + Tagline */}
           <div>
             <h1 className="text-2xl font-extrabold lg:text-3xl">
               {renderCompanyName()}
@@ -249,7 +220,6 @@ export default function Navbar() {
               >
                 {item.name}
 
-                {/* Active / Hover Underline */}
                 <span
                   className={`absolute -bottom-2 left-0 h-[2px] rounded-full bg-[#F58220] transition-all duration-300 ${
                     isActive
@@ -283,9 +253,7 @@ export default function Navbar() {
               : "Open navigation menu"
           }
           aria-expanded={menuOpen}
-          onClick={() =>
-            setMenuOpen(!menuOpen)
-          }
+          onClick={() => setMenuOpen(!menuOpen)}
           className={`md:hidden ${
             scrolled
               ? "text-[#0B2341]"
@@ -312,7 +280,6 @@ export default function Navbar() {
       >
         <div className="flex flex-col gap-6 px-8 py-8">
 
-          {/* Mobile Navigation Links */}
           {navItems.map((item) => {
             const isActive =
               activeSection ===
@@ -339,12 +306,9 @@ export default function Navbar() {
             );
           })}
 
-          {/* Mobile CTA */}
           <Link
             href="#contact"
-            onClick={() =>
-              setMenuOpen(false)
-            }
+            onClick={() => setMenuOpen(false)}
             className="rounded-xl bg-[#F58220] py-3 text-center font-semibold text-white transition hover:bg-orange-600"
           >
             Get a Quote

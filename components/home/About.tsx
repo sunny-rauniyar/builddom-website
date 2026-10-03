@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 
@@ -15,7 +16,6 @@ export default function About() {
 
         {/* Left Image */}
         <div className="relative">
-
           <Image
             src="/images/about/about.jpg"
             alt="About BuildDom"
@@ -23,14 +23,6 @@ export default function About() {
             height={750}
             className="rounded-3xl object-cover shadow-2xl"
           />
-
-          <div className="absolute -bottom-8 -right-8 rounded-3xl bg-[#F58220] p-8 text-white shadow-xl">
-            <h3 className="text-5xl font-bold">10+</h3>
-            <p className="mt-2 font-medium">
-              Years of Excellence
-            </p>
-          </div>
-
         </div>
 
         {/* Right Content */}
@@ -63,8 +55,9 @@ export default function About() {
               </h3>
 
               <p className="text-gray-600">
-                Deliver innovative construction solutions while maintaining the
-                highest standards of quality, safety and customer satisfaction.
+                Deliver innovative construction solutions while maintaining
+                the highest standards of quality, safety and customer
+                satisfaction.
               </p>
             </div>
 
@@ -88,8 +81,12 @@ export default function About() {
                 key={item}
                 className="flex items-center gap-3"
               >
-                <CheckCircle className="text-[#F58220]" size={22} />
-                <span className="text-gray-700 font-medium">
+                <CheckCircle
+                  className="text-[#F58220]"
+                  size={22}
+                />
+
+                <span className="font-medium text-gray-700">
                   {item}
                 </span>
               </div>
