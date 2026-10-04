@@ -32,7 +32,7 @@ interface Settings {
 export default function Footer() {
   const [settings, setSettings] = useState<Settings>({
     companyName: "builDom",
-    tagline: "Build Better Together",
+    tagline: "Build Better Together...",
     email: "",
     phone: "",
     address: "",
@@ -126,7 +126,7 @@ export default function Footer() {
           <span className="font-semibold text-[#F58220]">
             Better
           </span>{" "}
-          Together
+          Together...
         </>
       );
     }
@@ -144,7 +144,7 @@ export default function Footer() {
           <span className="font-semibold text-[#F58220]">
             Better
           </span>{" "}
-          Together
+          Together...
         </>
       );
     }
